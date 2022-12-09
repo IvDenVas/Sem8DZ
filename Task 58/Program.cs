@@ -2,28 +2,33 @@
 // которая будет находить произведение двух матриц.
 Console.Clear();
 
-int rows = UserInput("Введите количество строк исходных матриц: ", "Ошибка ввода!");
-int columns = UserInput("Введите количество столбцов исходных матриц: ", "Ошибка ввода!");
-
-int[,] arrayOne = GetArray(rows, columns, -10, 10);
-int[,] arrayTwo = GetArray(rows, columns, -10, 10);
+int[,] arrayOne = GetArray(2, 2, 0, 10);
+int[,] arrayTwo = GetArray(2, 2, 0, 10);
 int[,] res = MultiplicationTwoMatrix(arrayOne, arrayTwo);
 
 PrintMatrix(arrayOne);
 Console.WriteLine();
 PrintMatrix(arrayTwo);
-Console.WriteLine("===============");
+Console.WriteLine("Результирующая матрица будет: ");
 PrintMatrix(res);
 
 int[,] MultiplicationTwoMatrix(int[,] arrOne, int[,] arrTwo)
 {
-    int[,] result = new int[arrayOne.GetLength(0),arrayOne.GetLength(1)];
-    for (int i = 0; i < result.GetLength(0); i++)
+    int[,] result = new int[arrayOne.GetLength(0),arrayTwo.GetLength(1)];
+    if (arrayOne.GetLength(1) == arrayTwo.GetLength(0))
     {
-        for (int j = 0; j < result.GetLength(1); j++)
+        for (int i = 0; i < result.GetLength(0); i++)
         {
-            result[i,j] = arrOne[i, j] * arrayTwo[i, j];
+            for (int j = 0; j < result.GetLength(1); j++)
+            {
+                for (int k = 0; k < arrayOne.GetLength(1); k++)
+                {
+                    result[i,j] += arrayOne[i, k] * arrayTwo[k, j];
+                }
+                
+            }
         }
+        
     }
     return result;
 }
@@ -51,17 +56,5 @@ void PrintMatrix(int[,] inArray)
             Console.Write($"{inArray[i, j]} ");
         }
         Console.WriteLine();
-    }
-}
-
-int UserInput (string message, string message1)
-{
-    while(true)
-    {
-        Console.Write(message);
-        if(int.TryParse(Console.ReadLine(), out int num))
-        if (num > 0)
-            return num;
-        Console.WriteLine(message1);
     }
 }
