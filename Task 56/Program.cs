@@ -10,8 +10,8 @@ int[] arraySummaElementov = SummaElementsRows(array);
 int minElArray = MinElementsArray(arraySummaElementov, array);
 
 PrintMatrix(array);
-Console.WriteLine($"Индекс строки с наименьшей суммой элементов -> {minElArray}, строка с элементами ниже:");
-PrintMatrixOneIndexRow(array, minElArray);
+Console.WriteLine($"Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: {minElArray + 1} строка");
+
 
 
 int[] SummaElementsRows(int[,] inArray)
@@ -84,13 +84,3 @@ void PrintMatrix(int[,] inArray)
     }
 }
 
-void PrintMatrixOneIndexRow(int[,] inArray, int num)
-{
-    for (int i = 0; i < inArray.GetLength(0); i++)
-    {
-        for (int j = 0; j < inArray.GetLength(1); j++)
-        {
-            if (i == num) Console.Write($"{inArray[i, j]} ");
-        }
-    }
-}
