@@ -1,18 +1,18 @@
 ﻿// Задайте прямоугольный двумерный массив. Напишите программу, 
 // которая будет находить строку с наименьшей суммой элементов.
 Console.Clear();
+
 int rows = UserInput("Введите количество строк: ", "Ошибка ввода!");
 int columns = UserInput("Введите количество столбцов: ", "Ошибка ввода!");
 
 int[,] array = GetArray(rows, columns, 0, 10);
 int[] arraySummaElementov = SummaElementsRows(array);
-int minElArray = MinElementsArray(arraySummaElementov);
-int minIndex = indexMinSummaElementsRows(arraySummaElementov, minElArray);
+int minElArray = MinElementsArray(arraySummaElementov, array);
 
 PrintMatrix(array);
-Console.WriteLine("Строка с наименьшей суммой элементов -->>");
-// PrintArrayOneDimensionalMassive(arraySummaElementov);
-PrintMatrixOneIndexRow(array, minIndex);
+Console.WriteLine($"Индекс строки с наименьшей суммой элементов -> {minElArray}, строка с элементами ниже:");
+PrintMatrixOneIndexRow(array, minElArray);
+
 
 int[] SummaElementsRows(int[,] inArray)
 {
@@ -30,24 +30,21 @@ int[] SummaElementsRows(int[,] inArray)
     return result;
 }
 
-int MinElementsArray(int[] array)
+int MinElementsArray(int[] array, int[,] inArray)
 {
     int min = array[0];
+    int minIndex = 0;
     for (int i = 0; i < array.Length; i++)
     {
-        if (array[i] < min) min = array[i];
-    }
-    return min;
-}
+        if (array[i] < min)
+        {
+            min = array[i];
+            minIndex = i;
 
-int indexMinSummaElementsRows(int[] array, int min)
-{
-    int result = 0;
-    for (int i = 0; i < array.Length; i++)
-    {
-        if (array[i] == min) result = i;
+        } 
+        
     }
-    return result;
+    return minIndex;
 }
 
 int UserInput (string message, string message1)
@@ -97,11 +94,3 @@ void PrintMatrixOneIndexRow(int[,] inArray, int num)
         }
     }
 }
-
-// void PrintArrayOneDimensionalMassive(int[] array)
-// {
-//     Console.Write($"[ ");
-//     for (int i=0; i < array.Length; i++)
-//         Console.Write(array[i] + " ");
-//     Console.Write($"]");
-// }
